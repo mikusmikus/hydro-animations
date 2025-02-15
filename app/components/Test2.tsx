@@ -19,7 +19,7 @@ export function Test2({
       console.log('panels', panels);
 
       // First ScrollTrigger for pinning
-      panels.forEach((panel) => {
+      panels.forEach((panel, index) => {
         ScrollTrigger.create({
           trigger: panel,
           start: () =>
@@ -29,35 +29,18 @@ export function Test2({
           pin: true,
           pinSpacing: false,
         });
+
+        // Additional ScrollTrigger for tracking center position
+        ScrollTrigger.create({
+          trigger: panel,
+          start: 'top center',
+          onToggle: (self) => {
+            if (self.isActive) {
+              console.log('Panel centered:', index);
+            }
+          },
+        });
       });
-
-      // Single ScrollTrigger for tracking all panels
-      // ScrollTrigger.create({
-      //   trigger: container.current,
-      //   start: 'top top',
-      //   end: 'bottom bottom',
-      //   onUpdate: (self) => {
-      //     // Get the scroll position relative to the viewport center
-      //     const scrollPos = window.scrollY + window.innerHeight / 2;
-
-      //     // Find the panel whose top is closest to the viewport center
-      //     let activePanel = panels[0];
-      //     let minDistance = Infinity;
-
-      //     panels.forEach((panel) => {
-      //       const rect = panel.getBoundingClientRect();
-      //       const panelTop = rect.top + window.scrollY;
-      //       const distance = Math.abs(scrollPos - panelTop);
-
-      //       if (distance < minDistance) {
-      //         minDistance = distance;
-      //         activePanel = panel;
-      //       }
-      //     });
-
-      //     console.log('Active panel:', activePanel.textContent?.trim());
-      //   },
-      // });
     },
     { scope: container }
   );
