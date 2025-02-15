@@ -37,7 +37,7 @@ const images = [
     src: '/images/_AAA9967.jpg',
     width: 1200,
     height: 2600,
-    title: 'Image 4',
+    title: 'Image 5',
   },
   {
     src: '/images/HYDRO_100R_DIE.jpg',
@@ -54,7 +54,7 @@ export default function Home() {
 
   return (
     <main className="">
-      <Test2 data={images} activeIndex={activeIndex} />
+      <Test2 data={images} setActiveIndex={setActiveIndex} />
       {/* <DotToButtons /> */}
       {/* <Test /> */}
       {/* <div ref={containerRef} className="w-full">

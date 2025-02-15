@@ -8,8 +8,10 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function Test2({
   data,
+  setActiveIndex,
 }: {
   data: { src: string; title: string; width: number; height: number }[];
+  setActiveIndex: (index: number) => void;
 }) {
   const container = useRef<HTMLDivElement>(null);
 
@@ -36,8 +38,17 @@ export function Test2({
           start: 'top center',
           onToggle: (self) => {
             if (self.isActive) {
-              console.log('Panel centered:', index);
+              setActiveIndex(index);
             }
+          },
+        });
+
+        // New ScrollTrigger for detecting when image top crosses below center
+        ScrollTrigger.create({
+          trigger: panel,
+          start: 'top center',
+          onLeave: () => {
+            console.log('Panel top scrolled below center:', index);
           },
         });
       });
