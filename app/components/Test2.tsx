@@ -42,15 +42,6 @@ export function Test2({
             }
           },
         });
-
-        // New ScrollTrigger for detecting when image top crosses below center
-        ScrollTrigger.create({
-          trigger: panel,
-          start: 'top center',
-          onLeave: () => {
-            console.log('Panel top scrolled below center:', index);
-          },
-        });
       });
     },
     { scope: container }
