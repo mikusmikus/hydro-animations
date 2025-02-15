@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { useGSAP } from '@gsap/react';
 import Image from 'next/image';
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
 export function Test2({
   data,
@@ -47,10 +48,34 @@ export function Test2({
     { scope: container }
   );
 
+  const handleImageClick = (panel: HTMLElement, index: number) => {
+    // Calculate offset by summing heights of previous panels
+    const panels = gsap.utils.toArray('.wrapper') as HTMLElement[];
+    const offset = panels
+      .slice(0, index)
+      .reduce((sum, panel) => sum + panel.offsetHeight, 0);
+
+    gsap.to(window, {
+      duration: 0.2,
+      scrollTo: {
+        y: offset,
+        autoKill: false,
+      },
+      ease: 'power1.out',
+      onComplete: () => {
+        console.log('Scroll animation completed to index:', index);
+      },
+    });
+  };
+
   return (
     <div ref={container} className="min-h-screen">
       {data.map((item, index) => (
-        <div key={index} className="wrapper relative">
+        <div
+          key={index}
+          className="wrapper relative cursor-pointer"
+          onClick={(e) => handleImageClick(e.currentTarget, index)}
+        >
           <div className="bg-[red] relative size-full">
             <Image
               src={item.src}
