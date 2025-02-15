@@ -8,6 +8,7 @@ const nextConfig = {
       },
     ],
   },
+  transpilePackages: ['gsap'],
 };
 
 export default nextConfig;
