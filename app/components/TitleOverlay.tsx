@@ -1,5 +1,5 @@
-import useEmblaCarousel from 'embla-carousel-react';
-import { useEffect, useCallback } from 'react';
+'use client';
+import { motion } from 'framer-motion';
 
 interface TitleOverlayProps {
   titles: string[];
@@ -7,47 +7,49 @@ interface TitleOverlayProps {
 }
 
 export const TitleOverlay = ({ titles, activeIndex }: TitleOverlayProps) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
-    align: 'center',
-    containScroll: 'keepSnaps',
-    axis: 'y',
-  });
-
-  const scrollTo = useCallback(
-    (index: number) => {
-      emblaApi?.scrollTo(index);
-    },
-    [emblaApi]
-  );
-
-  useEffect(() => {
-    if (emblaApi) {
-      scrollTo(activeIndex);
-    }
-  }, [activeIndex, emblaApi, scrollTo]);
-
   return (
-    <div className="fixed z-[100] top-1/2 left-8 -translate-y-1/2">
-      <div className="h-[300px] overflow-hidden" ref={emblaRef}>
-        <div className="flex flex-col gap-6">
-          {titles.map((title, index) => (
-            <div
-              key={index}
-              className={`flex-[0_0_auto] transition-all duration-300
-                ${
-                  index === activeIndex
-                    ? 'text-[12px] font-medium opacity-100 translate-x-4'
-                    : 'text-[10px] opacity-30'
-                }`}
-            >
-              <h2 className="text-white mix-blend-difference whitespace-nowrap">
-                {title}
-              </h2>
-            </div>
-          ))}
-        </div>
+    <div className="fixed z-[100] top-1/2 left-8 -translate-y-1/2 text-left bg-[lightblue] w-[100px]">
+      <div className="flex flex-col gap-2">
+        {titles.map((title, index) => (
+          <motion.div
+            key={title}
+            animate={{
+              x: index === activeIndex ? 16 : 0,
+              opacity: index === activeIndex ? 1 : 0.7,
+            }}
+            className="text-black relative"
+          >
+            {index === activeIndex ? (
+              <SplitText text={title} />
+            ) : (
+              <span className="text-[14px] block">{title}</span>
+            )}
+          </motion.div>
+        ))}
       </div>
+    </div>
+  );
+};
+
+const SplitText = ({ text }: { text: string }) => {
+  return (
+    <div className="flex items-center gap-[0.05em] h-[24px]">
+      {text.split('').map((char, index) => (
+        <div key={index} className="relative h-full overflow-hidden">
+          <motion.span
+            initial={{ y: 24 }}
+            animate={{ y: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: index * 0.05,
+              ease: [0.33, 1, 0.68, 1],
+            }}
+            className="text-[16px] font-medium block"
+          >
+            {char === ' ' ? '\u00A0' : char}
+          </motion.span>
+        </div>
+      ))}
     </div>
   );
 };
