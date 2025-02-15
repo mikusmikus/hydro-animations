@@ -51,13 +51,13 @@ export function Test2({
     <div ref={container} className="min-h-screen">
       {data.map((item, index) => (
         <div key={index} className="wrapper relative">
-          <div className="bg-[red] relative">
+          <div className="bg-[red] relative size-full">
             <Image
               src={item.src}
               alt={item.title}
               width={item.width}
               height={item.height}
-              className="object-cover w-full"
+              className="object-cover w-full h-full"
             />
           </div>
         </div>
