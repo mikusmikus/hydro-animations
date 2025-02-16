@@ -4,16 +4,18 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { useGSAP } from '@gsap/react';
 import Image from 'next/image';
-
+import { useRouter } from 'next/navigation';
+import { Artist } from '@/lib/data';
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
 export function Test2({
   data,
   setActiveIndex,
 }: {
-  data: { src: string; title: string; width: number; height: number }[];
+  data: Artist[];
   setActiveIndex: (index: number) => void;
 }) {
+  const router = useRouter();
   const container = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -56,14 +58,17 @@ export function Test2({
       .reduce((sum, panel) => sum + panel.offsetHeight, 0);
 
     gsap.to(window, {
-      duration: 0.2,
+      duration: 0.3,
       scrollTo: {
         y: offset,
         autoKill: false,
       },
       ease: 'power1.out',
       onComplete: () => {
-        console.log('Scroll animation completed to index:', index);
+        setTimeout(() => {
+          console.log('pushing', data[index].slug);
+          router.push(`/${data[index].slug}`);
+        }, 300);
       },
     });
   };
@@ -76,7 +81,7 @@ export function Test2({
           className="wrapper relative cursor-pointer"
           onClick={(e) => handleImageClick(e.currentTarget, index)}
         >
-          <div className="bg-[red] relative size-full">
+          <div className="relative size-full">
             <Image
               src={item.src}
               alt={item.title}

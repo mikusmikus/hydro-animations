@@ -9,56 +9,7 @@ import { DotToButtons } from './components/dot-to-buttons';
 import { Test2 } from './components/Test2';
 import { TextShuffle } from './components/text-shuffle';
 import { TitleOverlay2 } from './components/TitleOverlay2';
-const images = [
-  {
-    src: '/images/_AAA9967.jpg',
-    width: 1200,
-    height: 2600,
-    title: 'SABINE MARCELIS',
-    description: 'Design through material and light',
-    slug: 'sabine-marcelis',
-  },
-  {
-    src: '/images/_42A3062.jpg',
-    width: 1400,
-    height: 2600,
-    title: 'KEIJI TAKEUCHI',
-    description: 'Minimal design with maximum impact',
-    slug: 'keiji-takeuchi',
-  },
-  {
-    src: '/images/_AAA0150.jpg',
-    width: 1600,
-    height: 2600,
-    title: 'CECILIE MANZ',
-    description: 'Scandinavian simplicity meets modern function',
-    slug: 'cecilie-manz',
-  },
-  {
-    src: '/images/_AAA9965.jpg',
-    width: 1200,
-    height: 2600,
-    title: 'DANIEL RYBAKKEN',
-    description: 'Light and shadow in harmony',
-    slug: 'daniel-rybakken',
-  },
-  {
-    src: '/images/_AAA9967.jpg',
-    width: 1200,
-    height: 2600,
-    title: 'STEFAN DIEZ',
-    description: 'Industrial elegance with sustainable approach',
-    slug: 'stefan-diez',
-  },
-  {
-    src: '/images/HYDRO_100R_DIE.jpg',
-    width: 1100,
-    height: 2600,
-    title: 'HYDRO',
-    description: 'Innovative aluminum design and engineering',
-    slug: 'hydro',
-  },
-];
+import { artists } from '@/lib/data';
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -84,7 +35,7 @@ export default function Home() {
       >
         Trigger Shuffle
       </button>
-      <Test2 data={images} setActiveIndex={setActiveIndex} />
+      <Test2 data={artists} setActiveIndex={setActiveIndex} />
       {/* <DotToButtons /> */}
       {/* <Test /> */}
       {/* <div ref={containerRef} className="w-full">
@@ -99,7 +50,7 @@ export default function Home() {
         ))}
       </div> */}
       <TitleOverlay2
-        titles={images.map((image) => image.title)}
+        titles={artists.map((artist) => artist.title)}
         activeIndex={activeIndex}
       />
     </main>
