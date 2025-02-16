@@ -8,48 +8,55 @@ import { Test } from './components/Test';
 import { DotToButtons } from './components/dot-to-buttons';
 import { Test2 } from './components/Test2';
 import { TextShuffle } from './components/text-shuffle';
-
+import { TitleOverlay2 } from './components/TitleOverlay2';
 const images = [
   {
     src: '/images/_AAA9967.jpg',
     width: 1200,
     height: 2600,
-    title: 'Image 1',
-    description: 'Description 1',
+    title: 'SABINE MARCELIS',
+    description: 'Design through material and light',
+    slug: 'sabine-marcelis',
   },
   {
     src: '/images/_42A3062.jpg',
     width: 1400,
     height: 2600,
-    title: 'Image 2',
-    description: 'Description 2',
+    title: 'KEIJI TAKEUCHI',
+    description: 'Minimal design with maximum impact',
+    slug: 'keiji-takeuchi',
   },
   {
     src: '/images/_AAA0150.jpg',
     width: 1600,
     height: 2600,
-    title: 'Image 3',
-    description: 'Description 3',
+    title: 'CECILIE MANZ',
+    description: 'Scandinavian simplicity meets modern function',
+    slug: 'cecilie-manz',
   },
   {
     src: '/images/_AAA9965.jpg',
     width: 1200,
     height: 2600,
-    title: 'Image 4',
-    description: 'Description 4',
+    title: 'DANIEL RYBAKKEN',
+    description: 'Light and shadow in harmony',
+    slug: 'daniel-rybakken',
   },
   {
     src: '/images/_AAA9967.jpg',
     width: 1200,
     height: 2600,
-    title: 'Image 5',
+    title: 'STEFAN DIEZ',
+    description: 'Industrial elegance with sustainable approach',
+    slug: 'stefan-diez',
   },
   {
     src: '/images/HYDRO_100R_DIE.jpg',
     width: 1100,
     height: 2600,
-    title: 'Image 6',
-    description: 'Description 6',
+    title: 'HYDRO',
+    description: 'Innovative aluminum design and engineering',
+    slug: 'hydro',
   },
 ];
 
@@ -64,11 +71,13 @@ export default function Home() {
 
   return (
     <main className="">
-      <TextShuffle
-        text="Hello World"
-        isAnimating={isShuffling}
-        onComplete={handleComplete}
-      />
+      <div className="fixed top-10 left-10 z-[200] text-white">
+        <TextShuffle
+          text="This is some shuffle text"
+          isAnimating={isShuffling}
+          onComplete={handleComplete}
+        />
+      </div>
       <button
         onClick={() => setIsShuffling(true)}
         className="fixed top-0 left-10 text-sm z-[200] bg-white px-4 py-2 rounded"
@@ -89,7 +98,7 @@ export default function Home() {
           />
         ))}
       </div> */}
-      <TitleOverlay
+      <TitleOverlay2
         titles={images.map((image) => image.title)}
         activeIndex={activeIndex}
       />

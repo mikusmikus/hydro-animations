@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 export function useTextShuffle(
-  originalText: string, 
+  originalText: string,
   isAnimating: boolean,
   onComplete?: () => void
 ) {
   const [displayText, setDisplayText] = useState(originalText);
   const intervalRef = useRef<NodeJS.Timeout>();
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const iterationRef = useRef(0);
   const textRef = useRef(originalText.toUpperCase());
 
@@ -60,4 +60,4 @@ export function useTextShuffle(
   }, [isAnimating, onComplete]);
 
   return displayText;
-} 
+}

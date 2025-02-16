@@ -14,8 +14,6 @@ export function TextShuffle({
   const displayText = useTextShuffle(text, isAnimating, onComplete);
 
   return (
-    <h1 className="text-4xl font-bold cursor-pointer absolute z-[200] top-10 bg-[white] p-4">
-      {displayText}
-    </h1>
+    <span className="font-mono uppercase tabular-nums">{displayText}</span>
   );
 }
