@@ -15,7 +15,7 @@ export const TitleOverlay2 = ({
 }: TitleOverlayProps) => {
   return (
     <div className="fixed z-[100] top-1/2 left-8 -translate-y-1/2 text-left min-w-[100px]">
-      <div className="flex flex-col gap-2 text-sm font-mono isolate font-bold">
+      <div className="flex flex-col gap-2 text-sm font-mono isolate font-bold mix-blend-difference">
         {titles.map((title, index) => (
           <motion.div
             key={title}

@@ -63,7 +63,7 @@ export function Test2({
       .reduce((sum, panel) => sum + panel.offsetHeight, 0);
 
     gsap.to(window, {
-      duration: 0.3,
+      duration: 0.001,
       scrollTo: {
         y: offset,
         autoKill: false,
@@ -77,7 +77,7 @@ export function Test2({
     setTimeout(() => {
       console.log('pushing', data[index].slug);
       router.push(`/${data[index].slug}`);
-    }, 300);
+    }, 900);
   };
 
   return (
