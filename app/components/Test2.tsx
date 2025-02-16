@@ -7,6 +7,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Artist } from '@/lib/data';
 import { TitleOverlay2 } from './TitleOverlay2';
+import { motion } from 'framer-motion';
+import { TextShuffle } from './text-shuffle';
+import clsx from 'clsx';
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
 export function Test2({
@@ -84,23 +87,40 @@ export function Test2({
         activeIndex={activeIndex}
         onTitleClick={scrollToPanel}
       />
-      {data.map((item, index) => (
-        <div
-          key={index}
-          className="wrapper relative cursor-pointer"
-          onClick={(e) => handleImageClick(e.currentTarget, index)}
-        >
-          <div className="relative size-full">
-            <Image
-              src={item.src}
-              alt={item.title}
-              width={item.width}
-              height={item.height}
-              className="object-cover w-full h-full"
-            />
+      {data.map((item, index) => {
+        const isActive = activeIndex === index;
+        return (
+          <div
+            key={index}
+            className="wrapper relative cursor-pointer"
+            onClick={(e) => handleImageClick(e.currentTarget, index)}
+          >
+            <div className="relative size-full">
+              <Image
+                src={item.src}
+                alt={item.title}
+                width={item.width}
+                height={item.height}
+                className="object-cover w-full h-full"
+              />
+              <div className="absolute inset-0  flex justify-end items-start">
+                <div
+                  className={clsx(
+                    'sticky top-1/2 w-full text-right text-white pr-4 mix-blend-difference',
+                    isActive ? 'opacity-100' : 'opacity-0'
+                  )}
+                >
+                  <TextShuffle
+                    text={item.description}
+                    isAnimating={isActive}
+                    speed={10}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

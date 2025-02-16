@@ -1,11 +1,17 @@
 import { useState, useRef, useEffect } from 'react';
 const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-export function useTextShuffle(
-  originalText: string,
-  isAnimating: boolean,
-  onComplete?: () => void
-) {
+export function useTextShuffle({
+  originalText,
+  isAnimating,
+  onComplete,
+  speed = 30,
+}: {
+  originalText: string;
+  isAnimating: boolean;
+  onComplete?: () => void;
+  speed?: number;
+}) {
   const [displayText, setDisplayText] = useState(originalText);
   const intervalRef = useRef<NodeJS.Timeout>();
   const iterationRef = useRef(0);
@@ -49,7 +55,7 @@ export function useTextShuffle(
     // Start animation if isAnimating is true
     if (isAnimating) {
       iterationRef.current = 0;
-      intervalRef.current = setInterval(handleShuffle, 30);
+      intervalRef.current = setInterval(handleShuffle, speed);
     }
 
     return () => {
