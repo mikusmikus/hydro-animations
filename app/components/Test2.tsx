@@ -83,7 +83,7 @@ export function Test2({
     setTimeout(() => {
       console.log('pushing', data[index].slug);
       router.push(`/${data[index].slug}`);
-    }, 900);
+    }, 500);
   };
 
   return (
