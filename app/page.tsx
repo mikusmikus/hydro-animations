@@ -35,7 +35,11 @@ export default function Home() {
       >
         Trigger Shuffle
       </button>
-      <Test2 data={artists} setActiveIndex={setActiveIndex} />
+      <Test2
+        data={artists}
+        setActiveIndex={setActiveIndex}
+        activeIndex={activeIndex}
+      />
       {/* <DotToButtons /> */}
       {/* <Test /> */}
       {/* <div ref={containerRef} className="w-full">
@@ -49,10 +53,11 @@ export default function Home() {
           />
         ))}
       </div> */}
-      <TitleOverlay2
+      {/* <TitleOverlay2
         titles={artists.map((artist) => artist.title)}
         activeIndex={activeIndex}
-      />
+        onTitleClick={() => {}}
+      /> */}
     </main>
   );
 }

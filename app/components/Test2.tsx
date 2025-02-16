@@ -6,14 +6,17 @@ import { useGSAP } from '@gsap/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Artist } from '@/lib/data';
+import { TitleOverlay2 } from './TitleOverlay2';
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
 export function Test2({
   data,
   setActiveIndex,
+  activeIndex,
 }: {
   data: Artist[];
   setActiveIndex: (index: number) => void;
+  activeIndex: number;
 }) {
   const router = useRouter();
   const container = useRef<HTMLDivElement>(null);
@@ -50,8 +53,7 @@ export function Test2({
     { scope: container }
   );
 
-  const handleImageClick = (panel: HTMLElement, index: number) => {
-    // Calculate offset by summing heights of previous panels
+  const scrollToPanel = (index: number) => {
     const panels = gsap.utils.toArray('.wrapper') as HTMLElement[];
     const offset = panels
       .slice(0, index)
@@ -64,17 +66,24 @@ export function Test2({
         autoKill: false,
       },
       ease: 'power1.out',
-      onComplete: () => {
-        setTimeout(() => {
-          console.log('pushing', data[index].slug);
-          router.push(`/${data[index].slug}`);
-        }, 300);
-      },
     });
+  };
+
+  const handleImageClick = (panel: HTMLElement, index: number) => {
+    scrollToPanel(index);
+    setTimeout(() => {
+      console.log('pushing', data[index].slug);
+      router.push(`/${data[index].slug}`);
+    }, 300);
   };
 
   return (
     <div ref={container} className="min-h-screen">
+      <TitleOverlay2
+        titles={data.map((item) => item.title)}
+        activeIndex={activeIndex}
+        onTitleClick={scrollToPanel}
+      />
       {data.map((item, index) => (
         <div
           key={index}
