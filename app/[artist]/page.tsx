@@ -14,7 +14,7 @@ export default function ArtistPage() {
   }
 
   return (
-    <div>
+    <div className="min-h-screen">
       <button
         onClick={() => router.back()}
         className="fixed top-4 left-4 text-white z-[10000] bg-black/50 px-4 py-2 rounded-md"
@@ -22,7 +22,7 @@ export default function ArtistPage() {
         Back
       </button>
 
-      <div className="relative w-screen h-screen">
+      <div className="relative">
         {/* Full screen image */}
         <div className="relative size-full">
           <Image
@@ -38,7 +38,7 @@ export default function ArtistPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute bottom-8 left-8 text-white mix-blend-difference"
+          className="fixed bottom-8 left-8 text-white mix-blend-difference"
         >
           <h1 className="text-4xl font-mono font-bold">{artistData.title}</h1>
         </motion.div>
