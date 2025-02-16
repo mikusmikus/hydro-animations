@@ -87,7 +87,7 @@ const FancyImageLoaderV2: React.FC<FancyImageLoaderProps> = ({
       let lastDrawTime = 0;
       const frameInterval = 100; // Slower frame rate (milliseconds between frames)
       let frame = 0;
-      const maxFrames = 25; // More frames for longer animation
+      const maxFrames = 10; // More frames for longer animation
 
       const animate = (timestamp: number) => {
         if (timestamp - lastDrawTime >= frameInterval) {
@@ -113,9 +113,12 @@ const FancyImageLoaderV2: React.FC<FancyImageLoaderProps> = ({
         } else {
           gsap.to(canvas, {
             opacity: 0,
-            duration: 0.5, // Slower fade out
+            duration: 0.001,
             ease: 'power2.inOut',
-            onComplete: () => setIsAnimationComplete(true),
+            onComplete: () => {
+              setIsAnimationComplete(true);
+              canvas.style.display = 'none'; // Hide canvas completely
+            },
           });
         }
       };
@@ -150,7 +153,7 @@ const FancyImageLoaderV2: React.FC<FancyImageLoaderProps> = ({
         src={src}
         alt={alt}
         className={`object-cover w-full h-full absolute inset-0 ${
-          isAnimationComplete ? 'opacity-100' : 'opacity-0'
+          isAnimationComplete ? 'visible' : 'invisible'
         }`}
       />
       <canvas
@@ -161,6 +164,7 @@ const FancyImageLoaderV2: React.FC<FancyImageLoaderProps> = ({
           height: '100%',
           opacity: 0,
           zIndex: 10,
+          display: isAnimationComplete ? 'none' : 'block',
         }}
       />
     </div>
