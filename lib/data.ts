@@ -47,6 +47,6 @@ export const artists = [
     description: 'Innovative aluminum design and engineering',
     slug: 'hydro',
   },
-] as const;
+];
 
 export type Artist = (typeof artists)[number];
