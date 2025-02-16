@@ -74,6 +74,12 @@ export function Test2({
 
   const handleImageClick = (panel: HTMLElement, index: number) => {
     scrollToPanel(index);
+
+    // const differenceFromTop: number =
+    // panel.getBoundingClientRect().top + window.scrollY;
+
+    // console.log('differenceFromTop', differenceFromTop);
+
     setTimeout(() => {
       console.log('pushing', data[index].slug);
       router.push(`/${data[index].slug}`);
@@ -89,20 +95,29 @@ export function Test2({
       />
       {data.map((item, index) => {
         const isActive = activeIndex === index;
+        const width = item.width;
+        const height = item.height;
         return (
           <div
             key={index}
             className="wrapper relative cursor-pointer"
             onClick={(e) => handleImageClick(e.currentTarget, index)}
           >
-            <div className="relative size-full">
+            <div
+              className="relative size-full"
+              style={{
+                width: '100%',
+                height: '100%',
+                aspectRatio: `${width}/${height}`,
+              }}
+            >
               <Image
                 src={item.src}
                 alt={item.title}
                 priority={true}
-                width={item.width}
-                height={item.height}
-                className="object-cover w-full h-full"
+                fill
+                sizes="100vw"
+                className="object-cover absolute inset-0"
               />
               <div className="absolute inset-0  flex justify-end items-start">
                 <div
