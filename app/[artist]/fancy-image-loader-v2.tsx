@@ -62,7 +62,7 @@ const FancyImageLoaderV2: React.FC<FancyImageLoaderProps> = ({
       tempCtx.drawImage(img, 0, 0);
 
       // Calculate pixel size - smaller squares
-      const pixelSize = Math.max(canvasWidth, canvasHeight) / 50; // Increased division for smaller squares
+      const pixelSize = Math.max(canvasWidth, canvasHeight) / 75; // Increased from 50 to 75 for smaller squares
       const cols = Math.ceil(canvasWidth / pixelSize);
       const rows = Math.ceil(canvasHeight / pixelSize);
 
