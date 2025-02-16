@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { artists } from '@/lib/data';
 import Image from 'next/image';
 import FancyImageLoader from './fancy-image-loader';
+import FancyImageLoaderV2 from './fancy-image-loader-v2';
 
 export default function ArtistPage() {
   const router = useRouter();
@@ -25,17 +26,12 @@ export default function ArtistPage() {
 
       <div className="relative">
         {/* Full screen image */}
-        <FancyImageLoader>
-          <div className="relative size-full">
-            <Image
-              src={artistData.src}
-              alt={artistData.title}
-              width={artistData.width}
-              height={artistData.height}
-              className="object-cover w-full h-full"
-            />
-          </div>
-        </FancyImageLoader>
+        <FancyImageLoaderV2
+          src={artistData.src}
+          alt={artistData.title}
+          width={artistData.width}
+          height={artistData.height}
+        />
 
         {/* Title overlay */}
         <motion.div
