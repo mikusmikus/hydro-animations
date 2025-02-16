@@ -21,7 +21,9 @@ const FancyImageLoaderV2: React.FC<FancyImageLoaderProps> = ({
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const pixelsRef = useRef<{ x: number; y: number; color: string }[]>([]);
+  const pixelsRef = useRef<
+    { x: number; y: number; color: string; originalColor: string }[]
+  >([]);
   const animationFrameRef = useRef<number>();
 
   useEffect(() => {
@@ -80,28 +82,50 @@ const FancyImageLoaderV2: React.FC<FancyImageLoaderProps> = ({
             x,
             y,
             color: `rgb(${data[0]}, ${data[1]}, ${data[2]})`,
+            originalColor: `rgb(${data[0]}, ${data[1]}, ${data[2]})`,
           });
         }
       }
 
       let lastDrawTime = 0;
-      const frameInterval = 100; // Slower frame rate (milliseconds between frames)
+      const frameInterval = 100;
       let frame = 0;
-      const maxFrames = 10; // More frames for longer animation
+      const maxFrames = 10;
 
       const animate = (timestamp: number) => {
         if (timestamp - lastDrawTime >= frameInterval) {
           ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
+          // Shuffle some pixels' colors randomly
+          const shuffleCount = Math.floor(pixelsRef.current.length * 0.3); // Shuffle 30% of pixels
+          for (let i = 0; i < shuffleCount; i++) {
+            const randomIndex = Math.floor(
+              Math.random() * pixelsRef.current.length
+            );
+            const randomColorIndex = Math.floor(
+              Math.random() * pixelsRef.current.length
+            );
+            pixelsRef.current[randomIndex].color =
+              pixelsRef.current[randomColorIndex].originalColor;
+          }
+
           pixelsRef.current.forEach((pixel) => {
             ctx.fillStyle = pixel.color;
             ctx.globalAlpha = 0.7 + Math.random() * 0.3;
             ctx.fillRect(
-              pixel.x + (Math.random() * 3 - 1.5), // Reduced jitter
+              pixel.x + (Math.random() * 3 - 1.5),
               pixel.y + (Math.random() * 3 - 1.5),
               pixelSize,
               pixelSize
             );
+          });
+
+          // Reset some pixels back to their original color
+          pixelsRef.current.forEach((pixel) => {
+            if (Math.random() < 0.5) {
+              // 50% chance to reset color
+              pixel.color = pixel.originalColor;
+            }
           });
 
           frame++;
