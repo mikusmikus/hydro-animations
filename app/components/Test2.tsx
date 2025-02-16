@@ -99,6 +99,7 @@ export function Test2({
               <Image
                 src={item.src}
                 alt={item.title}
+                priority={true}
                 width={item.width}
                 height={item.height}
                 className="object-cover w-full h-full"
