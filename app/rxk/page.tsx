@@ -27,14 +27,14 @@ export default function Home() {
       </AnimatePresence>
       <motion.div
         animate={{
-          width: isOpen ? 500 : 200,
-          height: isOpen ? 400 : 48,
+          width: isOpen ? '90%' : 200,
+          height: isOpen ? '90%' : 48,
           x: "-50%",
           backgroundColor: isOpen ? "#FFDDC1" : "#abcdef",
         }}
         transition={{ duration: 1, ease: [0.32, 0.72, 0, 1] }}
         style={{ transformOrigin: "bottom center" }}
-        className="fixed left-1/2 bottom-8 rounded-2xl overflow-hidden z-50"
+        className="fixed left-1/2 bottom-8 rounded-2xl overflow-hidden z-50 lg:max-w-[500px]"
       >
         <div className="relative w-full h-full">
           <AnimatePresence mode="wait">
